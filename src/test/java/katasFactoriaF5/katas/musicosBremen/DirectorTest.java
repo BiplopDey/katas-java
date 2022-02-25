@@ -11,16 +11,35 @@ class DirectorTest {
 
     Director director;
 
-    Animal cat = new Cat("Garfield", "Singing in the rain");
-    Animal donkey = new Cat("Donkey", "Singing in the day");
+    Singer cat = new Cat("Garfield", "Singing in the rain");
+    Singer donkey = new Cat("Donkey", "Singing in the day");
 
     @BeforeEach
     void beforeEach(){
-        director = new Director(List.of(cat,donkey));
+        director = new Director("Bob",List.of(cat,donkey));
     }
 
     @Test
     void directorHasAListOfAnimals(){
         assertEquals(director.getSingers(), List.of(cat,donkey));
     }
+
+
+    @Test
+    void directorCanMakeSingAnimals(){
+        director.startSing();
+
+        assertTrue(cat.isSinging());
+        assertTrue(donkey.isSinging());
+    }
+
+    @Test
+    void directorCanMakeStopToSingAnimals(){
+        director.startSing();
+        director.stopSing();
+
+        assertFalse(cat.isSinging());
+        assertFalse(donkey.isSinging());
+    }
+
 }

@@ -17,7 +17,7 @@ class CatTest {
     @Test
     void catGetName(){
         assertEquals(catSinger.getName(), "Garfield");
-        assertEquals(catSinger.getSing(),"Canto esto");
+        assertEquals(catSinger.getSong(),"Canto esto");
     }
 
     @Test
@@ -29,13 +29,13 @@ class CatTest {
     void catCanStopSinging() {
         catSinger.stopSinging();
 
-        assertEquals(catSinger.isSinging, false);
+        assertFalse(catSinger.isSinging());
     }
     @Test
     void catMessageIsSinging(){
         catSinger.startSinging();
 
-        assertEquals(catSinger.message(), "El gato " + catSinger.getName() +" está cantado "+catSinger.getSing() );
+        assertEquals(catSinger.message(), "El gato " + catSinger.getName() +" está cantado "+catSinger.getSong() );
     }
 
     @Test

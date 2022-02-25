@@ -1,35 +1,16 @@
 package katasFactoriaF5.katas.musicosBremen;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 public abstract class Animal {
+    @Getter
     protected String name;
-    protected String sing;
-    public boolean isSinging;
 
-    public Animal(String name, String sing) {
+    public Animal(String name) {
         this.name = name;
-        this.sing = sing;
     }
-
-    public String getSing() {
-        return sing;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String startSinging(){
-        isSinging = true;
-        return sing;
-    }
-
-    public void stopSinging(){
-        isSinging = false;
-    }
-
-    abstract String message();
 
     @Override
     public boolean equals(Object o) {
@@ -42,8 +23,7 @@ public abstract class Animal {
 
         Animal person = (Animal) o;
 
-        return Objects.equals(name, person.name)
-                && Objects.equals(sing, person.sing);
+        return Objects.equals(name, person.name);
     }
 
 }

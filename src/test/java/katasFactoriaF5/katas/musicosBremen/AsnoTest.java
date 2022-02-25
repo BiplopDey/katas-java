@@ -23,7 +23,7 @@ class AsnoTest {
     void catMessageIsSinging(){
         asnoSinger.startSinging();
 
-        assertEquals(asnoSinger.message(), "El asno " + asnoSinger.getName() +" está cantado "+asnoSinger.getSing() );
+        assertEquals(asnoSinger.message(), "El asno " + asnoSinger.getName() +" está cantado "+asnoSinger.getSong() );
     }
 
 }
