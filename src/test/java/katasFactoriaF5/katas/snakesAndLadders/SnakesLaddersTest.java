@@ -1,9 +1,7 @@
 package katasFactoriaF5.katas.snakesAndLadders;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -62,5 +60,19 @@ class SnakesLaddersTest {
         assertEquals(player1.getSquare(), 8);
     }
 
+    @Test
+    void diceHasToBeBetween1And6(){
+        game.dice(7,1);
+        assertEquals(player1.getSquare(), 1);
+
+        game.dice( 7,-1);
+        assertEquals(player1.getSquare(), 1);
+    }
+
+    @Test
+    void climbUpLadders(){
+        game.dice(2,1);
+        assertEquals(player1.getSquare(), 20);
+    }
 
 }

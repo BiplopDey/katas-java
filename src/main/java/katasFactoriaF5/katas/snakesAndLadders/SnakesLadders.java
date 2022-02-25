@@ -23,11 +23,11 @@ public class SnakesLadders {
     }
 
     public void dice(int i, int j){
-        getCurrentPlayer().move(i+j);
-        if(i != j ){
-             players.next();
-        }
+        if(i < 0 || j < 0 || i > 6 || j > 6) return;
 
+        getCurrentPlayer().move(i+j);
+
+        if(i != j ) players.next();
     }
 
 

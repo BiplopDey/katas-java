@@ -14,5 +14,6 @@ public class Player {
 
     public void move(int AddSquares){
         square = (square + AddSquares)%100;
+        if(square == 4) square = 20;
     }
 }
