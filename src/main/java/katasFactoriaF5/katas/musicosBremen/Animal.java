@@ -1,5 +1,7 @@
 package katasFactoriaF5.katas.musicosBremen;
 
+import java.util.Objects;
+
 public abstract class Animal {
     protected String name;
     protected String sing;
@@ -27,6 +29,21 @@ public abstract class Animal {
         isSinging = false;
     }
 
-     abstract String message();
+    abstract String message();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+
+        Animal person = (Animal) o;
+
+        return Objects.equals(name, person.name)
+                && Objects.equals(sing, person.sing);
+    }
 
 }
