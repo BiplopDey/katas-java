@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AsnoTest {
-    Asno asnoSinger;
+    Donkey asnoSinger;
 
     @BeforeEach
 
     void beforeEach() {
-        asnoSinger = new Asno("Garfield", "Canto esto");
+        asnoSinger = new Donkey("Garfield", "Canto esto");
     }
     @Test
     void asnoMessageIsNotSinging(){

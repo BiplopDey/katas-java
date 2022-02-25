@@ -1,10 +1,10 @@
 package katasFactoriaF5.katas.musicosBremen;
 
-public class Asno extends Animal implements Singer{
+public class Donkey extends Animal implements Singer{
     public boolean isSinging;
     private String song;
 
-    public Asno(String name, String song) {
+    public Donkey(String name, String song) {
         super(name);
         this.song = song;
     }
