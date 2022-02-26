@@ -18,10 +18,12 @@ public class Board {
 
     private final List<Integer> squares = IntStream.range(1,size+1).boxed().collect(Collectors.toList());
     private final Map<Integer, Integer> ladders = new HashMap<>(size);
+    private final Map<Integer, Integer> snakes = new HashMap<>(size);
 
     public Board(){
         ladders.put(4,20);
         ladders.put(7,10);
+        snakes.put(16,6);
     }
 
     public int getSquare(int i){
@@ -29,7 +31,9 @@ public class Board {
     }
 
     public int moveToSquare(int square){
-        return ladders.containsKey(square) ? ladders.get(square) : square;
+        square = ladders.containsKey(square) ? ladders.get(square) : square;
+        square = snakes.containsKey(square) ? snakes.get(square) : square;
+        return square;
     }
 
 }

@@ -13,8 +13,9 @@ public class CycledList<E> {
         this.items = items;
     }
 
-    public void next(){
+    public E next(){
         currentIndex = (currentIndex+1)%items.size();
+        return current();
     }
 
     public E current(){

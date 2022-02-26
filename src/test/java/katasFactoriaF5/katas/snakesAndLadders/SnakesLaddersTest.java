@@ -23,8 +23,8 @@ class SnakesLaddersTest {
     }
 
     @Test
-    void playersStartOnSquare0(){
-        assertThat(game.getCurrentPlayer().getSquare(), equalTo(1));
+    void playersStartOnSquare1(){
+        assertThat(game.currentPlayer().getSquare(), equalTo(1));
         assertThat(game.nextPlayer().getSquare(), equalTo(1));
         verify(player1).getSquare();
     }
@@ -37,48 +37,77 @@ class SnakesLaddersTest {
         assertThat(game.nextPlayer(), equalTo(player1));
     }
 
-
     @Test
     void rollDiceBetweenPlayers(){
-        game.dice(1,4);
-        assertThat(game.getCurrentPlayer(), equalTo(player2));
+        game.play(1,4);
+        assertThat(game.currentPlayer(), equalTo(player2));
         assertEquals(player1.getSquare(), 6);
 
-        game.dice(3,2);
-        assertThat(game.getCurrentPlayer(), equalTo(player1));
+        game.play(3,2);
+        assertThat(game.currentPlayer(), equalTo(player1));
         assertEquals(player2.getSquare(), 6);
     }
 
     @Test
     void doubleDiceHasAnOtherGo(){
-        game.dice(1,1);
-        assertThat(game.getCurrentPlayer(), equalTo(player1));
+        game.play(1,1);
+        assertThat(game.currentPlayer(), equalTo(player1));
         assertEquals(player1.getSquare(), 3);
 
-        game.dice(3,2);
-        assertThat(game.getCurrentPlayer(), equalTo(player2));
+        game.play(3,2);
+        assertThat(game.currentPlayer(), equalTo(player2));
         assertEquals(player1.getSquare(), 8);
     }
 
     @Test
     void diceHasToBeBetween1And6(){
-        assertThrows(IllegalArgumentException.class, ()->{game.dice( 7,-1);});
-        assertThrows(IllegalArgumentException.class, ()->{game.dice( 1,-1);});
+        assertThrows(IllegalArgumentException.class, ()->{game.play( 7,-1);});
+        assertThrows(IllegalArgumentException.class, ()->{game.play( 1,-1);});
     }
 
     @Test
     void landOnBottomOfLadderSquare4andGoTo20(){
-        game.dice(2,1);
+        game.play(2,1);
         assertEquals(player1.getSquare(), 20);
     }
 
     @Test
     void landOnBottomOfLadderSquare4andGoTo20EventRolledDouble(){
-        game.dice(3,3);
+        game.play(3,3);
         assertEquals(player1.getSquare(), 10);
 
-        game.dice(1,1);
+        game.play(1,1);
         assertEquals(player1.getSquare(), 12);
     }
 
+    @Test
+    void landOnTopSnakeSquare16AndGoTo6(){
+        game.play(6,6);
+        game.play(2,1);
+
+        assertEquals(player1.getSquare(), 6);
+    }
+
+    @Test
+    void playerLandSquare100WithoutAnyMovesLeftWin(){
+        player1.move(96);
+        game.play(2,1);
+        assertEquals(game.getMessage(), "Player red wins" );
+    }
+
+    @Test
+    void returnGameOverIfAPlayerWinsAndAnotherTriesToPlay(){
+        player1.move(96);
+        game.play(2,1);
+        game.play(1,3);
+
+        assertEquals(game.getMessage(), "Game Over" );
+    }
+
+    @Test
+    void getMessageOfCurrentPlayerSquare(){
+        game.play(1,4);
+        game.play(1,6);
+        assertEquals(game.getMessage(), "Player red is on square 6" );
+    }
 }
