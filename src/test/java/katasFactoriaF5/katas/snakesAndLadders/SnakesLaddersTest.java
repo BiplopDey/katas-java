@@ -7,8 +7,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SnakesLaddersTest {
@@ -38,11 +37,12 @@ class SnakesLaddersTest {
         assertThat(game.nextPlayer(), equalTo(player1));
     }
 
+
     @Test
     void rollDiceBetweenPlayers(){
-        game.dice(1,2);
+        game.dice(1,4);
         assertThat(game.getCurrentPlayer(), equalTo(player2));
-        assertEquals(player1.getSquare(), 4);
+        assertEquals(player1.getSquare(), 6);
 
         game.dice(3,2);
         assertThat(game.getCurrentPlayer(), equalTo(player1));
@@ -62,17 +62,23 @@ class SnakesLaddersTest {
 
     @Test
     void diceHasToBeBetween1And6(){
-        game.dice(7,1);
-        assertEquals(player1.getSquare(), 1);
-
-        game.dice( 7,-1);
-        assertEquals(player1.getSquare(), 1);
+        assertThrows(IllegalArgumentException.class, ()->{game.dice( 7,-1);});
+        assertThrows(IllegalArgumentException.class, ()->{game.dice( 1,-1);});
     }
 
     @Test
-    void climbUpLadders(){
+    void landOnBottomOfLadderSquare4andGoTo20(){
         game.dice(2,1);
         assertEquals(player1.getSquare(), 20);
+    }
+
+    @Test
+    void landOnBottomOfLadderSquare4andGoTo20EventRolledDouble(){
+        game.dice(3,3);
+        assertEquals(player1.getSquare(), 10);
+
+        game.dice(1,1);
+        assertEquals(player1.getSquare(), 12);
     }
 
 }

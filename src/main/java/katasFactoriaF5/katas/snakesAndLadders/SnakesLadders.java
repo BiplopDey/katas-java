@@ -23,7 +23,7 @@ public class SnakesLadders {
     }
 
     public void dice(int i, int j){
-        if(i < 0 || j < 0 || i > 6 || j > 6) return;
+        if(i < 0 || j < 0 || i > 6 || j > 6) throw new IllegalArgumentException("Dice must be between 1-6");
 
         getCurrentPlayer().move(i+j);
 
