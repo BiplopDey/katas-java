@@ -1,6 +1,6 @@
 # Katas
 
-This repository haz diferents types of Katas to practice the Domain logic using TDD.
+This repository has diferents types of Katas to practice the Domain logic using TDD.
 
 ### Objective of these katas :movie_camera:
 The objective of these Katas is using TDD practice OOP (Abstraction, Encapsulation, Inheritance, Polymorphism and Interfaces), class relations,  Java Api(Junit 5, Mockito, Lambda) and SOLID.
