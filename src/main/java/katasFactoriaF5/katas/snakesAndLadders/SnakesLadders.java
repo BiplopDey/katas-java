@@ -29,22 +29,22 @@ public class SnakesLadders {
         return "Player "+ currentPlayer().getName() +" is on square "+ currentPlayer().getSquare() ;
     }
 
-    public void play(int i, int j){
-        if(i < 0 || j < 0 || i > 6 || j > 6)
+    public void play(DiceService diceService){
+        if(!diceService.isValid())
             throw new IllegalArgumentException("Dice must be between 1-6");
-
         if(state == GameStates.HAVE_WINNER){
             state = GameStates.GAME_OVER;
             return;
         }
-
-        currentPlayer().move(i+j);
+        if(state != GameStates.PLAYING)
+            return;
+        currentPlayer().move(diceService);
         if(currentPlayer().getStatus() == PlayerStatus.WINNER){
             state = GameStates.HAVE_WINNER;
             return;
         }
 
-        if(i != j) players.next();
+        if(!diceService.keepTurn()) players.next();
     }
 
 

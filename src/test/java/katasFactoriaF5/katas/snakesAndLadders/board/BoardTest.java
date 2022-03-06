@@ -1,7 +1,6 @@
 package katasFactoriaF5.katas.snakesAndLadders.board;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,11 +8,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
-    Board board;
+    ClassicBoard board;
 
     @BeforeEach
     void beforeEach(){
-        board = new Board();
+        board = new ClassicBoard();
     }
 
     @ParameterizedTest

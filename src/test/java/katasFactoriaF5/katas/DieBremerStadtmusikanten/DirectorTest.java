@@ -1,4 +1,4 @@
-package katasFactoriaF5.katas.musicosBremen;
+package katasFactoriaF5.katas.DieBremerStadtmusikanten;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

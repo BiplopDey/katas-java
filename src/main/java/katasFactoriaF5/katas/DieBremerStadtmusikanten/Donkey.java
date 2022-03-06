@@ -1,13 +1,10 @@
-package katasFactoriaF5.katas.musicosBremen;
+package katasFactoriaF5.katas.DieBremerStadtmusikanten;
 
-import lombok.Getter;
-
-public class Cat extends Animal implements Singer{
-
-    private boolean isSinging;
+public class Donkey extends Animal implements Singer{
+    public boolean isSinging;
     private String song;
 
-    public Cat(String name, String song) {
+    public Donkey(String name, String song) {
         super(name);
         this.song = song;
     }
@@ -19,8 +16,8 @@ public class Cat extends Animal implements Singer{
 
     @Override
     public String message() {
-            return isSinging ? "El gato " + name +" está cantado "+song:
-                    "el gato " + name + " no quiere cantar";
+        return isSinging ? "El asno " + name +" está cantado "+song:
+                "el asno " + name + " no quiere cantar";
     }
 
     @Override
