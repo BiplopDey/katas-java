@@ -11,9 +11,7 @@ import java.util.stream.IntStream;
 public abstract class Board {
     private final int height;
     private final int weight;
-    @Getter
     private final int size;
-
     private final List<Integer> squares;
     protected final Map<Integer, Integer> ladders;
     protected final Map<Integer, Integer> snakes;
@@ -31,10 +29,15 @@ public abstract class Board {
         return squares.get(i-1);
     }
 
-    public int moveToSquare(int square){
-        square = ladders.getOrDefault(square, square);
-        square = snakes.getOrDefault(square, square);
-        return square;
+    public int moveToSquare(int squares){
+        squares = squares%size;
+        squares = ladders.getOrDefault(squares, squares);
+        squares = snakes.getOrDefault(squares, squares);
+        return squares;
+    }
+
+    public boolean isHomeSquare(int square){
+        return square == 0;
     }
 
 }

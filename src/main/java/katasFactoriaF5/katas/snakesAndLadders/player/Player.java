@@ -1,9 +1,11 @@
-package katasFactoriaF5.katas.snakesAndLadders;
+package katasFactoriaF5.katas.snakesAndLadders.player;
 
+import katasFactoriaF5.katas.snakesAndLadders.DiceService;
+import katasFactoriaF5.katas.snakesAndLadders.DoubleCubeDiceService;
 import katasFactoriaF5.katas.snakesAndLadders.board.Board;
-import katasFactoriaF5.katas.snakesAndLadders.board.ClassicBoard;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class Player {
@@ -18,9 +20,8 @@ public class Player {
     }
 
     public void move(DiceService diceService){
-        square = (square + diceService.getPoints())%board.getSize();
-        square = board.moveToSquare(square);
-        if(square == 0 && !diceService.keepTurn()) status = PlayerStatus.WINNER;
+        square = board.moveToSquare(square + diceService.getTotal());
+        if(board.isHomeSquare(square) && !diceService.keepTurn()) status = PlayerStatus.WINNER;
     }
 
 }

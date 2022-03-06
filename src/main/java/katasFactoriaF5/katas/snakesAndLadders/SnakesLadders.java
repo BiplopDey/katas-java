@@ -1,17 +1,18 @@
 package katasFactoriaF5.katas.snakesAndLadders;
 
-import katasFactoriaF5.katas.snakesAndLadders.TecnicalServices.CycledList;
-import katasFactoriaF5.katas.snakesAndLadders.board.ClassicBoard;
+import katasFactoriaF5.katas.snakesAndLadders.tecnicalServices.CycledList;
+import katasFactoriaF5.katas.snakesAndLadders.board.Board;
+import katasFactoriaF5.katas.snakesAndLadders.player.Player;
+import katasFactoriaF5.katas.snakesAndLadders.player.PlayerStatus;
 
 import java.util.List;
 
 public class SnakesLadders {
     private final CycledList<Player> players;
-    private String message;
     private GameStates state = GameStates.PLAYING;
 
-    public SnakesLadders(List<Player> players) {
-        players.stream().forEach(player -> player.setBoard(new ClassicBoard()));
+    public SnakesLadders(List<Player> players, Board board) {
+        players.stream().forEach(player -> player.setBoard(board));
         this.players = new CycledList<>(players);
     }
 

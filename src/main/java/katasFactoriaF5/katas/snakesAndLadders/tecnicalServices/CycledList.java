@@ -1,7 +1,4 @@
-package katasFactoriaF5.katas.snakesAndLadders.TecnicalServices;
-
-import katasFactoriaF5.katas.snakesAndLadders.Player;
-import lombok.Getter;
+package katasFactoriaF5.katas.snakesAndLadders.tecnicalServices;
 
 import java.util.List;
 
