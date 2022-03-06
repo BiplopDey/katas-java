@@ -1,9 +1,6 @@
-package katasFactoriaF5.katas.DieBremerStadtmusikanten;
+package katasFactoriaF5.katas.dieBremerStadtmusikanten;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-
-import java.util.Objects;
 
 
 public abstract class Animal{

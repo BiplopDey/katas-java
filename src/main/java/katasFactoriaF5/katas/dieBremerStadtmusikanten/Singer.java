@@ -1,4 +1,4 @@
-package katasFactoriaF5.katas.DieBremerStadtmusikanten;
+package katasFactoriaF5.katas.dieBremerStadtmusikanten;
 
 public interface Singer {
 

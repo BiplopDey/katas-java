@@ -1,4 +1,4 @@
-package katasFactoriaF5.katas.Calculator;
+package katasFactoriaF5.katas.calculator;
 
 
 import java.util.List;

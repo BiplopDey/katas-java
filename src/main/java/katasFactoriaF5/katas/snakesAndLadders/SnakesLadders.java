@@ -34,7 +34,8 @@ public class SnakesLadders {
 
     public void play(DiceService diceService){
         if(!diceService.isValid())
-            throw new IllegalArgumentException("Dice must be between 1-6");
+            throw new IllegalArgumentException("Invalid argument");
+
         if(state == GameStates.HAVE_WINNER){
             state = GameStates.GAME_OVER;
             return;

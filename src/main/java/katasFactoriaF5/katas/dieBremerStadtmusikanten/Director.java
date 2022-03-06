@@ -1,17 +1,14 @@
-package katasFactoriaF5.katas.DieBremerStadtmusikanten;
+package katasFactoriaF5.katas.dieBremerStadtmusikanten;
 
 import lombok.Getter;
 
 import java.util.List;
 
-
-public class Director extends Animal{
-
+public class Director{
     @Getter
     final List<Singer> singers;
 
-    public Director(String name, List<Singer> singers) {
-        super(name);
+    public Director(List<Singer> singers) {
         this.singers = singers;
     }
 

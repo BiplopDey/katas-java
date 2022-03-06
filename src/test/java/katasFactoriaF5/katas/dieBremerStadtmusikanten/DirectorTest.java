@@ -1,4 +1,4 @@
-package katasFactoriaF5.katas.DieBremerStadtmusikanten;
+package katasFactoriaF5.katas.dieBremerStadtmusikanten;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,18 +12,18 @@ class DirectorTest {
     Director director;
 
     Singer cat = new Cat("Garfield", "Singing in the rain");
-    Singer donkey = new Cat("Donkey", "Singing in the day");
+    Singer donkey = new Donkey("Donkey", "Singing in the day");
+    Singer comicCharacter = new ComicCharacter("Mafalda", "Don't want to sing");
 
     @BeforeEach
     void beforeEach(){
-        director = new Director("Bob",List.of(cat,donkey));
+        director = new Director(List.of(cat,donkey, comicCharacter));
     }
 
     @Test
     void directorHasAListOfAnimals(){
         assertEquals(director.getSingers(), List.of(cat,donkey));
     }
-
 
     @Test
     void directorCanMakeSingAnimals(){
