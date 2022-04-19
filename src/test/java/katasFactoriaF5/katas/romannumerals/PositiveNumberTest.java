@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PostiveNumberTest {
+public class PositiveNumberTest {
 
     @Test
     void negativeAndZeroNumbers_are_invalid(){

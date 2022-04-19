@@ -55,7 +55,7 @@ public class NumeralConverterTest {
 
     @ParameterizedTest
     @MethodSource("generateArabicRomanPairs")
-    void paramtrizedTest(ArabicRomanPair pair){
+    void parametrizedTest(ArabicRomanPair pair){
         assertEquals(pair.roman, converter.toRoman(pair.arabic));
     }
 }
