@@ -1,4 +1,4 @@
-package katasFactoriaF5.katas.snakesAndLadders.tecnicalServices;
+package katasFactoriaF5.katas.snakesAndLadders.utils;
 
 import java.util.List;
 

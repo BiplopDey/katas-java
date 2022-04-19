@@ -17,12 +17,12 @@ class DirectorTest {
 
     @BeforeEach
     void beforeEach(){
-        director = new Director(List.of(cat,donkey, comicCharacter));
+        director = new Director(List.of(cat, donkey, comicCharacter));
     }
 
     @Test
     void directorHasAListOfAnimals(){
-        assertEquals(director.getSingers(), List.of(cat,donkey));
+        assertEquals(director.getSingers(), List.of(cat,donkey, comicCharacter));
     }
 
     @Test
