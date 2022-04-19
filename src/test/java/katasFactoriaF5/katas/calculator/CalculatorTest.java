@@ -46,9 +46,9 @@ class CalculatorTest {
     @Test
     void cantDivideWith0(){
         calc.setTotal(2);
-        Throwable exception = assertThrows(RuntimeException.class,() -> calc.divide(0));
 
-        assertEquals("Division by zero",exception.getMessage());
+        Throwable exception = assertThrows(RuntimeException.class, () -> calc.divide(0));
+        assertEquals("Division by zero", exception.getMessage());
     }
 
     @Test
