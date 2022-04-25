@@ -5,7 +5,6 @@ import katasFactoriaF5.katas.snakesAndLadders.DoubleCubeDiceService;
 import katasFactoriaF5.katas.snakesAndLadders.board.Board;
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class Player {

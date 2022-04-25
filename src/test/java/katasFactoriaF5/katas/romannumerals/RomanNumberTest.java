@@ -10,6 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RomanNumberTest {
 
+    @Test
+    void basisEnumContains(){
+        assertTrue(RomanNumber.Basis.contains('I'));
+        assertTrue(RomanNumber.Basis.contains('X'));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"0","FX","AB","aXLOPAQW"})
     void invalidRomanNumbers(String number){
@@ -22,4 +28,15 @@ public class RomanNumberTest {
         assertDoesNotThrow(() -> RomanNumber.of(number));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"x","xlvi","XL","DMV"})
+    void equalsRomanNumber(String number){
+        assertEquals(RomanNumber.of(number),RomanNumber.of(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"xixxxx","LLLLX", "iiiivvvvi"})
+    void cantRepeatSymbolsMoreThan3timesConsecutively(String number){
+        assertThrows(RuntimeException.class, () -> RomanNumber.of(number));
+    }
 }

@@ -13,8 +13,10 @@ public class PositiveNumber {
     public PositiveNumber(Integer number){
         if(number<=0)
             throw new RuntimeException("Number must be postive");
+
         this.number = number;
     }
+
     public static PositiveNumber of(Integer number){
         return new PositiveNumber(number);
     }
