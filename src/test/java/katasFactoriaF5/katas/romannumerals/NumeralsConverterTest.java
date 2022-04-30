@@ -37,18 +37,18 @@ public class NumeralsConverterTest {
 
     private static List<ArabicRomanPair> generateExp_10_ArabicRomanPairs(){
         return List.of(
-                new ArabicRomanPair(PositiveNumber.of(1), RomanNumber.of(RomanNumber.Basis.I)),
-                new ArabicRomanPair(PositiveNumber.of(10), RomanNumber.of(RomanNumber.Basis.X)),
-                new ArabicRomanPair(PositiveNumber.of(100), RomanNumber.of(RomanNumber.Basis.C)),
-                new ArabicRomanPair(PositiveNumber.of(1000), RomanNumber.of(RomanNumber.Basis.M))
+                new ArabicRomanPair(PositiveNumber.of(1), RomanNumber.of(RomanNumber.Symbols.I)),
+                new ArabicRomanPair(PositiveNumber.of(10), RomanNumber.of(RomanNumber.Symbols.X)),
+                new ArabicRomanPair(PositiveNumber.of(100), RomanNumber.of(RomanNumber.Symbols.C)),
+                new ArabicRomanPair(PositiveNumber.of(1000), RomanNumber.of(RomanNumber.Symbols.M))
                 );
     }
 
     private static List<ArabicRomanPair> generateExp_5_ArabicRomanPairs(){
         return List.of(
-                new ArabicRomanPair(PositiveNumber.of(5), RomanNumber.of(RomanNumber.Basis.V)),
-                new ArabicRomanPair(PositiveNumber.of(50), RomanNumber.of(RomanNumber.Basis.L)),
-                new ArabicRomanPair(PositiveNumber.of(500), RomanNumber.of(RomanNumber.Basis.D)));
+                new ArabicRomanPair(PositiveNumber.of(5), RomanNumber.of(RomanNumber.Symbols.V)),
+                new ArabicRomanPair(PositiveNumber.of(50), RomanNumber.of(RomanNumber.Symbols.L)),
+                new ArabicRomanPair(PositiveNumber.of(500), RomanNumber.of(RomanNumber.Symbols.D)));
     }
 
     @ParameterizedTest
@@ -64,9 +64,15 @@ public class NumeralsConverterTest {
     }
 
     @Test
-    void multipleOfOne(){
+    void oneToTen(){
         assertEquals(RomanNumber.of("ii"), converter.toRoman(PositiveNumber.of(2)));
         assertEquals(RomanNumber.of("iii"), converter.toRoman(PositiveNumber.of(3)));
+        assertEquals(RomanNumber.of("viii"), converter.toRoman(PositiveNumber.of(8)));
     }
 
+    @Test
+    void twoAndZeros(){
+        assertEquals(RomanNumber.of("xx"), converter.toRoman(PositiveNumber.of(20)));
+        assertEquals(RomanNumber.of("cc"), converter.toRoman(PositiveNumber.of(200)));
+    }
 }
