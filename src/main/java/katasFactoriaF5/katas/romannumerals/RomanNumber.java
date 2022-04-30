@@ -36,7 +36,8 @@ public class RomanNumber {
     }
 
     private boolean isValid(String number){
-        return number.chars().filter(i -> Symbols.contains( (char) i)).count() == number.length()
+        return number.chars()
+                .filter(i -> Symbols.contains( (char) i)).count() == number.length()
                 && !consecutiveRepeateMoreThan3(number);
     }
 
@@ -52,22 +53,20 @@ public class RomanNumber {
 
     @Override
     public String toString(){
-        return number;
+        return number.toString();
     }
 
     public RomanNumber multiplyByTen() {
-        Map<Character,Character> mapMultiplyTen = new HashMap<>();
-        mapMultiplyTen.put(Symbols.I.getNumber(),Symbols.X.getNumber());
-        mapMultiplyTen.put(Symbols.V.getNumber(),Symbols.L.getNumber());
-        mapMultiplyTen.put(Symbols.X.getNumber(),Symbols.C.getNumber());
+        Map<Symbols,Symbols> mapMultiplyTen = new HashMap<>();
+        mapMultiplyTen.put(Symbols.I,Symbols.X);
+        mapMultiplyTen.put(Symbols.V,Symbols.L);
+        mapMultiplyTen.put(Symbols.X,Symbols.C);
 
-        String multipliedNum="";
-        for (char ch : number.toCharArray()) {
-            multipliedNum+=mapMultiplyTen.get(ch);
-        }
-        return RomanNumber.of(
-            multipliedNum
-        );
+        var multipliedNum = number.stream()
+                .map(s->String.valueOf(mapMultiplyTen.get(s).number))
+                .reduce("",(s1,s2)->s1+s2);
+
+        return RomanNumber.of(multipliedNum);
 
     }
 
