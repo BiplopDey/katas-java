@@ -47,10 +47,17 @@ public class RomanNumberTest {
             "xl,iv",
             "l,v",
             "lx,vi",
-            "xc,ix"
+            "xc,ix",
+            "d,l",
+            "m,c",
+            "ccxl,xxiv"//24->240
     })
     void multiplyByTen(String expected, String actual){
         assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByTen());
+    }
+
+    void multiplyByTenFail_ifNumberExceed3000(){
+
     }
 
     @Test

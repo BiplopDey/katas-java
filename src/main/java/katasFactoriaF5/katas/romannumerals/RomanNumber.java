@@ -12,6 +12,12 @@ import java.util.stream.Stream;
 @Getter
 public class RomanNumber {
     final private List<Symbols> number;
+    final private Map<Symbols,Symbols> mapMultiplyTen = Map.of(
+            Symbols.I,Symbols.X,
+            Symbols.V,Symbols.L,
+            Symbols.X,Symbols.C,
+            Symbols.L,Symbols.D,
+            Symbols.C,Symbols.M);
 
     public RomanNumber(String number) {
         number = number.trim().toUpperCase();
@@ -37,7 +43,7 @@ public class RomanNumber {
 
     private boolean isValid(String number){
         return number.chars()
-                .filter(i -> Symbols.contains( (char) i)).count() == number.length()
+                .filter(i -> Symbols.contains((char) i)).count() == number.length()
                 && !consecutiveRepeateMoreThan3(number);
     }
 
@@ -57,17 +63,11 @@ public class RomanNumber {
     }
 
     public RomanNumber multiplyByTen() {
-        Map<Symbols,Symbols> mapMultiplyTen = new HashMap<>();
-        mapMultiplyTen.put(Symbols.I,Symbols.X);
-        mapMultiplyTen.put(Symbols.V,Symbols.L);
-        mapMultiplyTen.put(Symbols.X,Symbols.C);
-
-        var multipliedNum = number.stream()
+        String multipliedNum = number.stream()
                 .map(s->String.valueOf(mapMultiplyTen.get(s).number))
                 .reduce("",(s1,s2)->s1+s2);
 
         return RomanNumber.of(multipliedNum);
-
     }
 
     public RomanNumber multiplyByHundred() {
