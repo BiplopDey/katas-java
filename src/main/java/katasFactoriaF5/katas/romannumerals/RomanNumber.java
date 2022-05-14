@@ -14,19 +14,27 @@ public class RomanNumber {
     final private List<Symbols> number;
     final private Map<Symbols,Symbols> mapMultiplyTen = Map.of(
             Symbols.I,Symbols.X,
-            Symbols.V,Symbols.L,
             Symbols.X,Symbols.C,
-            Symbols.L,Symbols.D,
-            Symbols.C,Symbols.M);
+            Symbols.C,Symbols.M,
+            Symbols.V,Symbols.L,
+            Symbols.L,Symbols.D
+            );
 
     public RomanNumber(String number) {
-        number = number.trim().toUpperCase();
+        number = formatNumber(number);
         if(!isValid(number))
-            throw new RuntimeException("Invalid roman number");
+            throw new IllegalArgumentException();
 
-        this.number = number.chars()
+        this.number = number
+                .chars()
                 .mapToObj(i -> Symbols.valueOf(String.valueOf((char) i)))
                 .collect(Collectors.toList());
+    }
+
+    private String formatNumber(String number){
+        if(number == null || number.isBlank())
+            throw new IllegalArgumentException();
+        return number.trim().toUpperCase();
     }
 
     public RomanNumber(Symbols number){
@@ -42,32 +50,43 @@ public class RomanNumber {
     }
 
     private boolean isValid(String number){
-        return number.chars()
-                .filter(i -> Symbols.contains((char) i)).count() == number.length()
-                && !consecutiveRepeateMoreThan3(number);
+        return  number
+                .chars()
+                .filter(i -> Symbols.contains((char) i))
+                .count() == number.length()
+                && !consecutiveRepeatedMoreThan3(number);
     }
 
-    private boolean consecutiveRepeateMoreThan3(String number){
-        for (int i = 0; i < number.length()-3; i++) {
-            if (number.charAt(i) == number.charAt(i+1) &&
+    private boolean consecutiveRepeatedMoreThan3(String number){
+        for (int i = 0; i < number.length()-3; i++)
+            if (
+                    number.charAt(i) == number.charAt(i+1) &&
                     number.charAt(i+1) == number.charAt(i+2) &&
-                    number.charAt(i+2) == number.charAt(i+3))
+                    number.charAt(i+2) == number.charAt(i+3)
+            )
                 return true;
-        }
         return false;
     }
 
-    @Override
-    public String toString(){
-        return number.toString();
-    }
-
     public RomanNumber multiplyByTen() {
-        String multipliedNum = number.stream()
-                .map(s->String.valueOf(mapMultiplyTen.get(s).number))
+        String multipliedNum = number
+                .stream()
+                .map(s->multiplyByTen(s).number+"")
                 .reduce("",(s1,s2)->s1+s2);
 
         return RomanNumber.of(multipliedNum);
+    }
+
+    private Symbols multiplyByTen(Symbols s){
+        if(!mapMultiplyTen.containsKey(s))
+            throw new NumberExceeds3000Exception();
+        return  mapMultiplyTen.get(s);
+    }
+
+    public class NumberExceeds3000Exception extends RuntimeException{
+        public NumberExceeds3000Exception() {
+            super("The number Exceeds 3000");
+        }
     }
 
     public RomanNumber multiplyByHundred() {
@@ -91,11 +110,18 @@ public class RomanNumber {
 
         private final Character number;
 
-        private static final Set<Character> enumSet = Stream.of(Symbols.values())
-                .map(v->v.number).collect(Collectors.toSet());
+        private static final Set<Character> enumSet = Stream
+                .of(Symbols.values())
+                .map(v->v.number)
+                .collect(Collectors.toSet());
 
         public static boolean contains(char i) {
             return enumSet.contains(i);
         }
+    }
+
+    @Override
+    public String toString(){
+        return number.toString();
     }
 }

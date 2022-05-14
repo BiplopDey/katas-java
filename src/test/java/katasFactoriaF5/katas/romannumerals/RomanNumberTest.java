@@ -1,5 +1,6 @@
 package katasFactoriaF5.katas.romannumerals;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,9 +17,15 @@ public class RomanNumberTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"0","FX","AB","aXLOPAQW"})
-    void invalidRomanNumbers(String number){
-        assertThrows(RuntimeException.class, () -> RomanNumber.of(number));
+    @ValueSource(strings = {"0","FX","AB","aXLOPAQW",""})
+    void illegalRomanSymbols(String number){
+        assertThrows(IllegalArgumentException.class, () -> RomanNumber.of(number));
+    }
+
+    @Test
+    void nullNumber() {
+        String s=null;
+        assertThrows(IllegalArgumentException.class, () -> RomanNumber.of(s));
     }
 
     @ParameterizedTest
@@ -39,6 +46,13 @@ public class RomanNumberTest {
         assertThrows(RuntimeException.class, () -> RomanNumber.of(number));
     }
 
+    @Test
+    @Disabled
+    void numberIsZero(){
+        assertThrows(RuntimeException.class, () -> RomanNumber.of("ddm"));
+        assertThrows(RuntimeException.class, () -> RomanNumber.of("llc"));
+    }
+
     @ParameterizedTest
     @CsvSource(value= {
             "x,i",
@@ -56,8 +70,12 @@ public class RomanNumberTest {
         assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByTen());
     }
 
-    void multiplyByTenFail_ifNumberExceed3000(){
-
+    @ParameterizedTest
+    @ValueSource(strings = {"m","d", "dm", "dmm"})
+    void multiplyByTenFail_ifNumberExceed3000(String number){
+        Exception exception = assertThrows(
+                RomanNumber.NumberExceeds3000Exception.class, () -> RomanNumber.of(number).multiplyByTen());
+        assertTrue(exception.getMessage().contains("The number Exceeds 3000"));
     }
 
     @Test
