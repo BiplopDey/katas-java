@@ -55,27 +55,58 @@ public class RomanNumberTest {
 
     @ParameterizedTest
     @CsvSource(value= {
-            "x,i",
-            "xx,ii",
-            "xxx,iii",
-            "xl,iv",
-            "l,v",
-            "lx,vi",
-            "xc,ix",
-            "d,l",
-            "m,c",
-            "ccxl,xxiv"//24->240
+            "i,x",
+            "ii,xx",
+            "iii,xxx",
+            "iv,xl",
+            "v,l",
+            "vi,lx",
+            "ix,xc",
+            "l,d",
+            "c,m",
+            "xxiv,ccxl"//24->240
+
     })
-    void multiplyByTen(String expected, String actual){
+    void multiplyByTen(String actual, String expected){
         assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByTen());
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"m","d", "dm", "dmm"})
-    void multiplyByTenFail_ifNumberExceed3000(String number){
+    @ValueSource(strings = {"m","d", "dm", "dmm"})// , "icd"
+    void cant_multiplyBy10_if_NumberExceed3999(String number){
         Exception exception = assertThrows(
-                RomanNumber.NumberExceeds3000Exception.class, () -> RomanNumber.of(number).multiplyByTen());
-        assertTrue(exception.getMessage().contains("The number Exceeds 3000"));
+                RomanNumber.NumberExceeds3999Exception.class, () -> RomanNumber.of(number).multiplyByTen());
+        assertTrue(exception.getMessage().contains("The number Exceeds 3999"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value= {
+            "i,c",
+            "ii,cc",
+            "iii,ccc",
+            "xxx,mmm"
+    })
+    void multiplyBy100(String actual,String expected){
+        assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByHundred());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"c","l","m","d"})
+    void cant_multiplyBy100_if_NumberExceed3999(String number){
+        Exception exception = assertThrows(
+                RomanNumber.NumberExceeds3999Exception.class,
+                () -> RomanNumber.of(number).multiplyByHundred());
+        assertTrue(exception.getMessage().contains("The number Exceeds 3999"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value= {
+            "i,m",
+            "ii,mm",
+            "iii,mmm"
+    })
+    void multiplyBy1000(String actual, String expected){
+        assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByThousand());
     }
 
     @Test
@@ -86,5 +117,11 @@ public class RomanNumberTest {
     @Test
     void multiplyByThousand(){
         assertEquals(RomanNumber.of("m"), RomanNumber.of("i").multiplyByThousand());
+    }
+
+    @Test
+    void concatenate(){
+        assertEquals(RomanNumber.of("vi"), RomanNumber.of("v").concatenate(RomanNumber.of("i")));
+        assertEquals(RomanNumber.of("v"), RomanNumber.of("v").concatenate(null));
     }
 }

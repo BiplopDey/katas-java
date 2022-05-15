@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @EqualsAndHashCode
-@Getter
 public class RomanNumber {
+    @Getter
     final private List<Symbols> number;
     final private Map<Symbols,Symbols> mapMultiplyTen = Map.of(
             Symbols.I,Symbols.X,
@@ -79,13 +79,19 @@ public class RomanNumber {
 
     private Symbols multiplyByTen(Symbols s){
         if(!mapMultiplyTen.containsKey(s))
-            throw new NumberExceeds3000Exception();
+            throw new NumberExceeds3999Exception();
         return  mapMultiplyTen.get(s);
     }
 
-    public class NumberExceeds3000Exception extends RuntimeException{
-        public NumberExceeds3000Exception() {
-            super("The number Exceeds 3000");
+    public RomanNumber concatenate(RomanNumber i) {
+        if(i!=null)
+            this.number.addAll(i.getNumber());
+        return this;
+    }
+
+    public class NumberExceeds3999Exception extends RuntimeException{
+        public NumberExceeds3999Exception() {
+            super("The number Exceeds 3999");
         }
     }
 
@@ -94,7 +100,7 @@ public class RomanNumber {
     }
 
     public RomanNumber multiplyByThousand() {
-        return RomanNumber.of("m");
+        return this.multiplyByHundred().multiplyByTen();
     }
 
     @Getter

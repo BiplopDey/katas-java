@@ -21,16 +21,38 @@ public class NumeralsConverter {
         arabicToRoman.put(PositiveNumber.of(7), RomanNumber.of("VII"));
         arabicToRoman.put(PositiveNumber.of(8), RomanNumber.of("VIII"));
         arabicToRoman.put(PositiveNumber.of(9), RomanNumber.of("IX"));
-
     }
 
     public RomanNumber toRoman(PositiveNumber number) {
-        if(number.getNumber()/10 == 2)
-            return RomanNumber.of("II").multiplyByTen();
-        if(number.getNumber()/100 == 2)
-            return RomanNumber.of("II").multiplyByHundred();
+        if(arabicToRoman.containsKey(number))
+            return arabicToRoman.get(number);
 
-        return arabicToRoman.get(number);
+        RomanNumber result = number.canGetUnits() ?
+                arabicToRoman.get(PositiveNumber.of(number.getUnits()))
+                : null;
+
+        result = number.canGetTens() ?
+                arabicToRoman
+                        .get(PositiveNumber.of(number.getTens()))
+                        .multiplyByTen()
+                        .concatenate(result)
+                : result;
+
+        result = number.canGetHundreds() ?
+                arabicToRoman
+                    .get(PositiveNumber.of(number.getHundreds()))
+                    .multiplyByHundred().concatenate(result)
+                : result;
+
+
+        result = number.canGetThousands() ?
+                arabicToRoman
+                        .get(PositiveNumber.of(number.getThousands()))
+                        .multiplyByThousand().concatenate(result)
+                : result;
+
+        return result;
     }
+
 
 }

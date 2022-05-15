@@ -2,14 +2,19 @@ package katasFactoriaF5.katas.romannumerals;
 
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 public class NumeralsConverterTest {
     NumeralsConverter converter;
@@ -70,9 +75,41 @@ public class NumeralsConverterTest {
         assertEquals(RomanNumber.of("viii"), converter.toRoman(PositiveNumber.of(8)));
     }
 
-    @Test
-    void twoAndZeros(){
-        assertEquals(RomanNumber.of("xx"), converter.toRoman(PositiveNumber.of(20)));
-        assertEquals(RomanNumber.of("cc"), converter.toRoman(PositiveNumber.of(200)));
+    @ParameterizedTest
+    @CsvSource(value= {
+            "x,10",
+            "xx,20",
+            "xxx,30",
+            "xl,40",
+            "xc,90",
+            "xi,11",
+            "xii,12",
+            "xcix,99",
+            "lix,59",
+            "lxxvii,77",
+    })
+    void toRomanTens(String actual, int expected){
+        assertEquals(RomanNumber.of(actual), converter.toRoman(PositiveNumber.of(expected)));
     }
+
+    @ParameterizedTest
+    @CsvSource(value= {
+            "cxi,111",
+            "ci,101",
+            "cx,110",
+            "cmxcix,999",
+            "dlxxix,579",
+    })
+    void toRomanHundreds(String actual, int expected){
+        assertEquals(RomanNumber.of(actual), converter.toRoman(PositiveNumber.of(expected)));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value= {
+            "mxi,1011",
+    })
+    void toRomanThousands(String actual, int expected){
+        assertEquals(RomanNumber.of(actual), converter.toRoman(PositiveNumber.of(expected)));
+    }
+
 }
