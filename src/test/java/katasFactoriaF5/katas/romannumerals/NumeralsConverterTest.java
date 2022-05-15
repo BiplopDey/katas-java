@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -99,6 +100,7 @@ public class NumeralsConverterTest {
             "cx,110",
             "cmxcix,999",
             "dlxxix,579",
+            "CCXLVI,246"
     })
     void toRomanHundreds(String actual, int expected){
         assertEquals(RomanNumber.of(actual), converter.toRoman(PositiveNumber.of(expected)));
@@ -107,9 +109,17 @@ public class NumeralsConverterTest {
     @ParameterizedTest
     @CsvSource(value= {
             "mxi,1011",
+            "mmmcmxcix,3999",
+            "MMCDXXI,2421",
+            "MIX,1009",
+            "MLXVI,1066"
     })
     void toRomanThousands(String actual, int expected){
         assertEquals(RomanNumber.of(actual), converter.toRoman(PositiveNumber.of(expected)));
     }
 
+    @Test
+    void cant_convertToRomanNumberGreaterThan4000(){
+        assertThrows(IllegalArgumentException.class, () -> converter.toRoman(PositiveNumber.of(4000)));
+    }
 }

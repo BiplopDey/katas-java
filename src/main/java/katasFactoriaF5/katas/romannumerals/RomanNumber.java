@@ -86,7 +86,7 @@ public class RomanNumber {
     public RomanNumber concatenate(RomanNumber i) {
         if(i!=null)
             this.number.addAll(i.getNumber());
-        return this;
+        return RomanNumber.of(toString());
     }
 
     public class NumberExceeds3999Exception extends RuntimeException{
@@ -128,6 +128,9 @@ public class RomanNumber {
 
     @Override
     public String toString(){
-        return number.toString();
+        return number
+                .stream()
+                .map(s->String.valueOf(s.getNumber()))
+                .reduce("",(a,b)->a+b);
     }
 }

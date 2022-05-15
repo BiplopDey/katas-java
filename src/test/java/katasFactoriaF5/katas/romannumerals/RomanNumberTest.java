@@ -124,4 +124,9 @@ public class RomanNumberTest {
         assertEquals(RomanNumber.of("vi"), RomanNumber.of("v").concatenate(RomanNumber.of("i")));
         assertEquals(RomanNumber.of("v"), RomanNumber.of("v").concatenate(null));
     }
+    @Test
+    void cant_concatenate(){
+        assertThrows(RuntimeException.class, ()->RomanNumber.of("ii").concatenate(RomanNumber.of("ii")));
+
+    }
 }

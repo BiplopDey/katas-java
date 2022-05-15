@@ -24,6 +24,9 @@ public class NumeralsConverter {
     }
 
     public RomanNumber toRoman(PositiveNumber number) {
+        if(number.getNumber()>3999)
+            throw new IllegalArgumentException("Numbre is greather than 3999");
+
         if(arabicToRoman.containsKey(number))
             return arabicToRoman.get(number);
 
@@ -43,7 +46,6 @@ public class NumeralsConverter {
                     .get(PositiveNumber.of(number.getHundreds()))
                     .multiplyByHundred().concatenate(result)
                 : result;
-
 
         result = number.canGetThousands() ?
                 arabicToRoman
