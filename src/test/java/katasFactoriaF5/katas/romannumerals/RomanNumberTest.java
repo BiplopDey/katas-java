@@ -69,8 +69,6 @@ public class RomanNumberTest {
     })
     void multiplyByTen(String actual, String expected){
         assertEquals(RomanNumber.of(expected),
-                RomanNumber.of(actual).multiplyByTen());
-        assertEquals(RomanNumber.of(expected),
                 RomanNumber.of(actual).multiplyByDecimalBase(10));
     }
 

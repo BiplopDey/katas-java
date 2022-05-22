@@ -124,5 +124,23 @@ public class NumeralsConverterTest {
                 () -> converter.toRoman(PositiveNumber.of(4000)));
     }
 
+    @ParameterizedTest
+    @CsvSource(value= {
+            "cxi,111",
+            "ci,101",
+            "cx,110",
+            "cmxcix,999",
+            "dlxxix,579",
+            "CCXLVI,246",
+            "mxi,1011",
+            "mmmcmxcix,3999",
+            "MMCDXXI,2421",
+            "MIX,1009",
+            "MLXVI,1066"
+    })
+    void toArabic(String expected, int actual){
+        assertEquals(PositiveNumber.of(actual),converter.toArabic(RomanNumber.of(expected)));
+    }
+
 
 }

@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 @EqualsAndHashCode
 public class RomanNumber {
     @Getter
-    final private List<Symbols> number;
-    final private Map<Symbols,Symbols> mapMultiplyTen = Map.of(
+    private final List<Symbols> number;
+    private final Map<Symbols,Symbols> mapMultiplyTen = Map.of(
             Symbols.I,Symbols.X,
             Symbols.X,Symbols.C,
             Symbols.C,Symbols.M,
@@ -68,7 +68,7 @@ public class RomanNumber {
         return false;
     }
 
-    public RomanNumber multiplyByTen() {
+    private RomanNumber multiplyByTen() {
         String multipliedNum = number
                 .stream()
                 .map(s->multiplyByTen(s).number+"")
