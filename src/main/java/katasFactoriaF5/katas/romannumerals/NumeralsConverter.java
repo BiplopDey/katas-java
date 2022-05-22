@@ -30,31 +30,21 @@ public class NumeralsConverter {
         if(arabicToRoman.containsKey(number))
             return arabicToRoman.get(number);
 
-        RomanNumber result = number.canGetUnits() ?
-                arabicToRoman.get(PositiveNumber.of(number.getUnits()))
-                : null;
-
-        result = number.canGetTens() ?
-                arabicToRoman
-                        .get(PositiveNumber.of(number.getTens()))
-                        .multiplyByTen()
-                        .concatenate(result)
-                : result;
-
-        result = number.canGetHundreds() ?
-                arabicToRoman
-                    .get(PositiveNumber.of(number.getHundreds()))
-                    .multiplyByHundred().concatenate(result)
-                : result;
-
-        result = number.canGetThousands() ?
-                arabicToRoman
-                        .get(PositiveNumber.of(number.getThousands()))
-                        .multiplyByThousand().concatenate(result)
-                : result;
-
+        RomanNumber result = null;
+        for (int i = 0; i < number.getBase10descomp().size(); i++) {
+            int decimalBase = tenPower(i);
+            int coef = number.getCoefOfDecimalBase(decimalBase);
+            result = coef != 0 ?
+                    arabicToRoman
+                            .get(PositiveNumber.of(coef))
+                            .multiplyByDecimalBase(decimalBase)
+                            .concatenate(result)
+                    : result;
+        }
         return result;
     }
 
-
+    private int tenPower(int i){
+        return (int) Math.pow(10,i);
+    }
 }

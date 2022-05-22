@@ -68,14 +68,18 @@ public class RomanNumberTest {
 
     })
     void multiplyByTen(String actual, String expected){
-        assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByTen());
+        assertEquals(RomanNumber.of(expected),
+                RomanNumber.of(actual).multiplyByTen());
+        assertEquals(RomanNumber.of(expected),
+                RomanNumber.of(actual).multiplyByDecimalBase(10));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"m","d", "dm", "dmm"})// , "icd"
     void cant_multiplyBy10_if_NumberExceed3999(String number){
         Exception exception = assertThrows(
-                RomanNumber.NumberExceeds3999Exception.class, () -> RomanNumber.of(number).multiplyByTen());
+                RomanNumber.NumberExceeds3999Exception.class,
+                () -> RomanNumber.of(number).multiplyByDecimalBase(10));
         assertTrue(exception.getMessage().contains("The number Exceeds 3999"));
     }
 
@@ -87,7 +91,8 @@ public class RomanNumberTest {
             "xxx,mmm"
     })
     void multiplyBy100(String actual,String expected){
-        assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByHundred());
+        assertEquals(RomanNumber.of(expected),
+                RomanNumber.of(actual).multiplyByHundred());
     }
 
     @ParameterizedTest
@@ -106,27 +111,48 @@ public class RomanNumberTest {
             "iii,mmm"
     })
     void multiplyBy1000(String actual, String expected){
-        assertEquals(RomanNumber.of(expected), RomanNumber.of(actual).multiplyByThousand());
+        assertEquals(RomanNumber.of(expected),
+                RomanNumber.of(actual).multiplyByThousand());
+    }
+
+    @Test
+    void illegal_multiplyByDecimalBase_argument(){
+        assertThrows(IllegalArgumentException.class,
+                ()-> RomanNumber.of("iv").multiplyByDecimalBase(11));
+        assertThrows(IllegalArgumentException.class,
+                ()-> RomanNumber.of("iv").multiplyByDecimalBase(99));
+    }
+
+    @Test
+    void multiplyByDecimalBase(){
+        assertEquals(RomanNumber.of("iv"),
+                RomanNumber.of("iv").multiplyByDecimalBase(1));
     }
 
     @Test
     void multiplyByHundred(){
-        assertEquals(RomanNumber.of("c"), RomanNumber.of("i").multiplyByHundred());
+        assertEquals(RomanNumber.of("c"),
+                RomanNumber.of("i").multiplyByHundred());
     }
 
     @Test
     void multiplyByThousand(){
-        assertEquals(RomanNumber.of("m"), RomanNumber.of("i").multiplyByThousand());
+        assertEquals(RomanNumber.of("m"),
+                RomanNumber.of("i").multiplyByThousand());
     }
 
     @Test
     void concatenate(){
-        assertEquals(RomanNumber.of("vi"), RomanNumber.of("v").concatenate(RomanNumber.of("i")));
-        assertEquals(RomanNumber.of("v"), RomanNumber.of("v").concatenate(null));
+        assertEquals(RomanNumber.of("vi"),
+                RomanNumber.of("v").concatenate(RomanNumber.of("i")));
+        assertEquals(RomanNumber.of("v"),
+                RomanNumber.of("v").concatenate(null));
     }
+
     @Test
     void cant_concatenate(){
-        assertThrows(RuntimeException.class, ()->RomanNumber.of("ii").concatenate(RomanNumber.of("ii")));
+        assertThrows(RuntimeException.class,
+                ()->RomanNumber.of("ii").concatenate(RomanNumber.of("ii")));
 
     }
 }

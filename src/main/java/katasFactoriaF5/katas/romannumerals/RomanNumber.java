@@ -80,7 +80,27 @@ public class RomanNumber {
     private Symbols multiplyByTen(Symbols s){
         if(!mapMultiplyTen.containsKey(s))
             throw new NumberExceeds3999Exception();
-        return  mapMultiplyTen.get(s);
+        return mapMultiplyTen.get(s);
+    }
+
+    public RomanNumber multiplyByDecimalBase(int i){
+        if(!Set.of(1,10,100,1000).contains(i))
+            throw new IllegalArgumentException();
+
+        RomanNumber romanNumber = this;
+        while(i/10!=0){
+            romanNumber = romanNumber.multiplyByTen();
+            i/=10;
+        }
+        return romanNumber;
+    }
+
+    public RomanNumber multiplyByHundred() {
+        return multiplyByDecimalBase(100);
+    }
+
+    public RomanNumber multiplyByThousand() {
+        return multiplyByDecimalBase(1000);
     }
 
     public RomanNumber concatenate(RomanNumber i) {
@@ -93,14 +113,6 @@ public class RomanNumber {
         public NumberExceeds3999Exception() {
             super("The number Exceeds 3999");
         }
-    }
-
-    public RomanNumber multiplyByHundred() {
-        return this.multiplyByTen().multiplyByTen();
-    }
-
-    public RomanNumber multiplyByThousand() {
-        return this.multiplyByHundred().multiplyByTen();
     }
 
     @Getter

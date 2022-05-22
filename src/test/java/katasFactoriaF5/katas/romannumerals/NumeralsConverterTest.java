@@ -120,6 +120,9 @@ public class NumeralsConverterTest {
 
     @Test
     void cant_convertToRomanNumberGreaterThan4000(){
-        assertThrows(IllegalArgumentException.class, () -> converter.toRoman(PositiveNumber.of(4000)));
+        assertThrows(IllegalArgumentException.class,
+                () -> converter.toRoman(PositiveNumber.of(4000)));
     }
+
+
 }
